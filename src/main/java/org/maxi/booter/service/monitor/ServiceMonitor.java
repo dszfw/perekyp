@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Aspect
-@Component
+//@Component
 public class ServiceMonitor {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
