@@ -21,7 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @ActiveProfiles("testing")
-public class CarSubscriptionCorresponding {
+public class CarSubscriptionCorrespondingTest {
 
 	@Autowired
 	CarRepostitory carRepo;
