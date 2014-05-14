@@ -1,12 +1,19 @@
 package org.maxi.booter.domain.car;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.Type;
+import org.maxi.booter.domain.Subscription;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
@@ -17,16 +24,24 @@ public class Car extends AbstractPersistable<Long> {
      */
 	private static final long serialVersionUID = 1L;
 
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
+	@JoinTable(
+			name = "cars_subscriptions",
+			joinColumns = @JoinColumn(name = "car_id"),
+			inverseJoinColumns = @JoinColumn(name = "subscription_id")
+	)
+	private List<Subscription> subscriptions;
+
 	private CarDefinition definition;
 
 	private String modification;
 
-	@Type(type = "java.sql.Date")
-	private LocalDate year;
+	@Temporal(TemporalType.DATE)
+	private Calendar year;
 
 	@Column(nullable = false)
-	@Type(type = "java.sql.Timestamp")
-	private LocalDateTime createdDate;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar createdDate;
 
 	private String mileage;
 
@@ -41,6 +56,9 @@ public class Car extends AbstractPersistable<Long> {
 
 	private Long displacement;
 
+	@Column(columnDefinition = "boolean default false")
+	private boolean processed;
+
 	// Getters and Setters methods -----------------------------------------
 
 	public String getModification() {
@@ -51,19 +69,19 @@ public class Car extends AbstractPersistable<Long> {
 		this.modification = modification;
 	}
 
-	public LocalDate getYear() {
+	public Calendar getYear() {
 		return year;
 	}
 
-	public void setYear(LocalDate year) {
+	public void setYear(Calendar year) {
 		this.year = year;
 	}
 
-	public LocalDateTime getCreatedDate() {
+	public Calendar getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(LocalDateTime createdDate) {
+	public void setCreatedDate(Calendar createdDate) {
 		this.createdDate = createdDate;
 	}
 
@@ -121,6 +139,22 @@ public class Car extends AbstractPersistable<Long> {
 
 	public void setDefinition(CarDefinition definition) {
 		this.definition = definition;
+	}
+
+	public List<Subscription> getSubscriptions() {
+		return subscriptions;
+	}
+
+	public void setSubscriptions(List<Subscription> subscriptions) {
+		this.subscriptions = subscriptions;
+	}
+
+	public boolean isProcessed() {
+		return processed;
+	}
+
+	public void setProcessed(boolean processed) {
+		this.processed = processed;
 	}
 
 }

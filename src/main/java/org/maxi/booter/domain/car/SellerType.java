@@ -12,17 +12,17 @@ import org.maxi.booter.domain.Subscription;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
-public class BodyType extends AbstractPersistable<Long> {
+public class SellerType extends AbstractPersistable<Long> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@OneToMany(mappedBy = "definition.bodyType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "definition.sellerType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Car> cars;
 
-	@OneToMany(mappedBy = "definition.bodyType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "definition.sellerType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Subscription> subscriptions;
 
 	@Column(nullable = false)

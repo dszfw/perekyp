@@ -1,13 +1,20 @@
 package org.maxi.booter.domain;
 
-import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.Type;
+import org.maxi.booter.domain.car.Car;
 import org.maxi.booter.domain.car.CarDefinition;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -19,19 +26,27 @@ public class Subscription extends AbstractPersistable<Long> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Column(nullable = false)
-	private String name;
-
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private User user;
 
-	private CarDefinition carDefinition;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
+	@JoinTable(
+			name = "cars_subscriptions",
+			inverseJoinColumns = @JoinColumn(name = "car_id"),
+			joinColumns = @JoinColumn(name = "subscription_id")
+	)
+	private List<Car> cars;
 
-	@Type(type = "java.sql.Date")
-	private LocalDate yearFrom;
+	private CarDefinition definition;
 
-	@Type(type = "java.sql.Date")
-	private LocalDate yearTo;
+	@Column(nullable = false)
+	private String name;
+
+	@Temporal(TemporalType.DATE)
+	private Calendar yearFrom;
+
+	@Temporal(TemporalType.DATE)
+	private Calendar yearTo;
 
 	private Long mileageFrom;
 
@@ -59,28 +74,12 @@ public class Subscription extends AbstractPersistable<Long> {
 		this.user = user;
 	}
 
-	public CarDefinition getCarDefinition() {
-		return carDefinition;
+	public CarDefinition getDefinition() {
+		return definition;
 	}
 
-	public void setCarDefinition(CarDefinition carDefinition) {
-		this.carDefinition = carDefinition;
-	}
-
-	public LocalDate getYearFrom() {
-		return yearFrom;
-	}
-
-	public void setYearFrom(LocalDate yearFrom) {
-		this.yearFrom = yearFrom;
-	}
-
-	public LocalDate getYearTo() {
-		return yearTo;
-	}
-
-	public void setYearTo(LocalDate yearTo) {
-		this.yearTo = yearTo;
+	public void setDefinition(CarDefinition definition) {
+		this.definition = definition;
 	}
 
 	public Long getMileageFrom() {
@@ -113,6 +112,30 @@ public class Subscription extends AbstractPersistable<Long> {
 
 	public void setPriceTo(Long priceTo) {
 		this.priceTo = priceTo;
+	}
+
+	public List<Car> getCars() {
+		return cars;
+	}
+
+	public void setCars(List<Car> cars) {
+		this.cars = cars;
+	}
+
+	public Calendar getYearFrom() {
+		return yearFrom;
+	}
+
+	public void setYearFrom(Calendar yearFrom) {
+		this.yearFrom = yearFrom;
+	}
+
+	public Calendar getYearTo() {
+		return yearTo;
+	}
+
+	public void setYearTo(Calendar yearTo) {
+		this.yearTo = yearTo;
 	}
 
 }

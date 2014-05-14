@@ -1,7 +1,8 @@
 package org.maxi.booter.domain.car;
 
-import java.util.Collection;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,11 +18,11 @@ public class CarManufacturer extends AbstractPersistable<Long> {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@OneToMany(mappedBy = "manufacturer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<CarModel> models;
+
 	@Column(nullable = false)
 	private String name;
-
-	@OneToMany(mappedBy = "manufacturer", fetch = FetchType.LAZY)
-	private Collection<CarModel> models;
 
 	// Getters and Setters methods -----------------------------------------
 
@@ -33,11 +34,11 @@ public class CarManufacturer extends AbstractPersistable<Long> {
 		this.name = name;
 	}
 
-	public Collection<CarModel> getModels() {
+	public List<CarModel> getModels() {
 		return models;
 	}
 
-	public void setModels(Collection<CarModel> models) {
+	public void setModels(List<CarModel> models) {
 		this.models = models;
 	}
 

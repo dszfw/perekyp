@@ -1,7 +1,8 @@
 package org.maxi.booter.domain;
 
-import java.util.Collection;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,11 +18,11 @@ public class User extends AbstractPersistable<Long> {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Subscription> subscriptions;
+
 	@Column(nullable = false)
 	private String name;
-
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private Collection<Subscription> subscriptions;
 
 	// Getters and Setters methods -----------------------------------------
 
@@ -33,11 +34,11 @@ public class User extends AbstractPersistable<Long> {
 		this.name = name;
 	}
 
-	public Collection<Subscription> getSubscriptions() {
+	public List<Subscription> getSubscriptions() {
 		return subscriptions;
 	}
 
-	public void setSubscriptions(Collection<Subscription> subscriptions) {
+	public void setSubscriptions(List<Subscription> subscriptions) {
 		this.subscriptions = subscriptions;
 	}
 

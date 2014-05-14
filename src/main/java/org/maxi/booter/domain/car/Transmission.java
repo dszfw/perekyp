@@ -12,31 +12,23 @@ import org.maxi.booter.domain.Subscription;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
-public class BodyType extends AbstractPersistable<Long> {
+public class Transmission extends AbstractPersistable<Long> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@OneToMany(mappedBy = "definition.bodyType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "definition.transmission", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Car> cars;
 
-	@OneToMany(mappedBy = "definition.bodyType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "definition.transmission", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Subscription> subscriptions;
 
 	@Column(nullable = false)
 	private String name;
 
 	// Getters and Setters methods -----------------------------------------
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public List<Car> getCars() {
 		return cars;
@@ -52,6 +44,14 @@ public class BodyType extends AbstractPersistable<Long> {
 
 	public void setSubscriptions(List<Subscription> subscriptions) {
 		this.subscriptions = subscriptions;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

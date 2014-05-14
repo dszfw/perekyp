@@ -1,14 +1,10 @@
 package org.maxi.booter.repository;
 
-import java.util.List;
-
-import org.maxi.booter.domain.car.Car;
+import org.maxi.booter.domain.car.CarModel;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
-public interface CarRepostitory extends CrudRepository<Car, Long> {
+public interface CarModelRepository extends CrudRepository<CarModel, Long> {
 
-	public List<Car> findByProcessed(boolean processed);
-	
 }

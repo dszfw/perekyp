@@ -3,12 +3,10 @@ package org.maxi.booter.domain.car;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import org.maxi.booter.domain.Location;
-import org.maxi.booter.domain.car.enums.Drive;
-import org.maxi.booter.domain.car.enums.Transmission;
-import org.maxi.booter.domain.enums.SellerType;
 
 @Embeddable
 public class CarDefinition implements Serializable {
@@ -18,22 +16,25 @@ public class CarDefinition implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private CarModel model;
 
-	@ManyToOne
-	private BodyType bodyType;
-
-	@ManyToOne
-	private EngineType engineType;
-
-	private Transmission transmission;
-
-	private Drive drive;
-
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Location location;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	private BodyType bodyType;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private EngineType engineType;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Transmission transmission;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Drive drive;
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	private SellerType sellerType;
 
 	// Getters and Setters methods -----------------------------------------
