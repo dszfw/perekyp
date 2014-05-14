@@ -12,7 +12,7 @@ import org.maxi.booter.domain.Subscription;
 import org.maxi.booter.domain.car.Car;
 import org.maxi.booter.domain.car.CarModel;
 import org.maxi.booter.repository.CarRepostitory;
-import org.maxi.booter.repository.SubscriptionRepository;
+import org.maxi.booter.repository.subscription.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
@@ -28,9 +28,9 @@ public class CarSubscriptionCorrespondingTest {
 	@Autowired
 	SubscriptionRepository subscriptionRepo;
 	
+	@Deprecated
 	@Test
-	public void corresponding() {
-	
+	public void corresponding_Old() {
 		// Processing unprocessed cars
 		List<Car> cars = carRepo.findByProcessed(false);
 		
@@ -55,5 +55,26 @@ public class CarSubscriptionCorrespondingTest {
 			carSubscriptions.forEach(s -> assertTrue(subscriptions.contains(s)));
 		}
 	}
+
+	@Test
+	public void corresponding() {
+		// Processing unprocessed cars
+		List<Car> cars = carRepo.findByProcessed(false);
+		
+		for (Car car : cars) {
+			List<Subscription> subscriptions = subscriptionRepo.findByCarDefinition(car.getDefinition());
+			car.setSubscriptions(subscriptions);
+		}
+		
+		// Saving result
+		cars = (List<Car>) carRepo.save(cars);
+		
+		// Asserting
+		for (Car car : cars) {
+			List<Subscription> subscriptions = subscriptionRepo.findByCarDefinition(car.getDefinition());
+			assertTrue(subscriptions.containsAll(car.getSubscriptions()));
+		}
+	}
+
 	
 }

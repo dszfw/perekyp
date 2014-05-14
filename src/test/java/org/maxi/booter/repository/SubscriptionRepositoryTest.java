@@ -17,6 +17,7 @@ import org.maxi.booter.domain.Subscription;
 import org.maxi.booter.domain.car.Car;
 import org.maxi.booter.domain.car.CarDefinition;
 import org.maxi.booter.domain.car.CarModel;
+import org.maxi.booter.repository.subscription.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
@@ -175,6 +176,13 @@ public class SubscriptionRepositoryTest {
 			assertEquals(model.getId(), s.getDefinition().getModel().getId());			
 			assertEquals(location.getId(), s.getDefinition().getLocation().getId());
 		});
+	}
+	
+	@Test
+	public void findByCarDefinition() {
+		Car car = carRepo.findOne(6L);
+		List<Subscription> subscriptions = subscriptionRepo.findByCarDefinition(car.getDefinition());
+		assertTrue(subscriptions.containsAll(car.getSubscriptions()));
 	}
 		
 }

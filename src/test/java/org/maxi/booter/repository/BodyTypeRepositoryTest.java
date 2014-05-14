@@ -14,6 +14,7 @@ import org.maxi.booter.domain.Subscription;
 import org.maxi.booter.domain.car.BodyType;
 import org.maxi.booter.domain.car.Car;
 import org.maxi.booter.domain.car.CarDefinition;
+import org.maxi.booter.repository.subscription.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.dao.DataIntegrityViolationException;
