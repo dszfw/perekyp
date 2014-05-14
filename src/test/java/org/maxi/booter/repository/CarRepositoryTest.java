@@ -15,6 +15,7 @@ import org.maxi.booter.Application;
 import org.maxi.booter.domain.Subscription;
 import org.maxi.booter.domain.car.Car;
 import org.maxi.booter.domain.car.CarDefinition;
+import org.maxi.booter.repository.subscription.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
@@ -89,9 +90,6 @@ public class CarRepositoryTest {
 	public void getSubscriptions() {
 		Car car = carRepo.findOne(1L);
 		List<Subscription> subscriptions = car.getSubscriptions();
-		
-		// TODO should be delete
-		System.out.println(subscriptions);
 		
 		assertThat(subscriptions, notNullValue());
 		assertThat(subscriptions, not(empty()));

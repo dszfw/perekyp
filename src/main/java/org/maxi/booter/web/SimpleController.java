@@ -4,7 +4,7 @@ import org.maxi.booter.domain.Subscription;
 import org.maxi.booter.domain.car.Car;
 import org.maxi.booter.repository.CarManufacturerRepository;
 import org.maxi.booter.repository.CarRepostitory;
-import org.maxi.booter.repository.SubscriptionRepository;
+import org.maxi.booter.repository.subscription.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
