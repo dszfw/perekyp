@@ -5,7 +5,7 @@ import static org.hamcrest.Matchers.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -85,14 +85,14 @@ public class EngineTypeRepositoryTest {
 	@Test
 	public void getCars() {
 		EngineType engineType = etRepo.findOne(1L);
-		List<Car> cars = engineType.getCars();
+		Set<Car> cars = engineType.getCars();
 		assertThat(cars, notNullValue());
 	}
 
 	@Test
 	public void getSubscriptions() {
 		EngineType engineType = etRepo.findOne(6L);
-		List<Subscription> subscriptions = engineType.getSubscriptions();
+		Set<Subscription> subscriptions = engineType.getSubscriptions();
 		assertThat(subscriptions, notNullValue());
 	}
 
@@ -102,7 +102,7 @@ public class EngineTypeRepositoryTest {
 	public void deleteCascadeCar() {
 		Long id = 1L;
 		EngineType engineType = etRepo.findOne(id);
-		List<Car> cars = engineType.getCars();
+		Set<Car> cars = engineType.getCars();
 
 		etRepo.delete(id);
 		engineType = etRepo.findOne(id);
@@ -114,7 +114,7 @@ public class EngineTypeRepositoryTest {
 	public void deleteCascadeSubscription() {
 		Long id = 1L;
 		EngineType engineType = etRepo.findOne(id);
-		List<Subscription> subscriptions = engineType.getSubscriptions();
+		Set<Subscription> subscriptions = engineType.getSubscriptions();
 
 		etRepo.delete(id);
 		engineType = etRepo.findOne(id);
@@ -126,25 +126,25 @@ public class EngineTypeRepositoryTest {
 	public void updateCascadeCar() {
 		Long id = 1L;
 		EngineType engineType = etRepo.findOne(id);
-		List<Car> cars = engineType.getCars();
-		Car car = cars.get(0);
+		Set<Car> cars = engineType.getCars();
+		Car car = cars.iterator().next();
 		String newColor = "матовый черный";
 		car.setColor(newColor);
 
 		EngineType savedEngineType = etRepo.save(engineType);
-		assertEquals(newColor, savedEngineType.getCars().get(0).getColor());
+		assertTrue(savedEngineType.getCars().contains(car));
 	}
 
 	@Test
 	public void updateCascadeSubscription() {
 		Long id = 1L;
 		EngineType engineType = etRepo.findOne(id);
-		Subscription subscription = engineType.getSubscriptions().get(0);
+		Subscription subscription = engineType.getSubscriptions().iterator().next();
 		String newName = "новая подписка";
 		subscription.setName(newName);
 
 		EngineType savedEngineType = etRepo.save(engineType);
-		assertEquals(newName, savedEngineType.getSubscriptions().get(0).getName());
+		assertEquals(newName, savedEngineType.getSubscriptions().iterator().next().getName());
 	}
 
 	@Test
@@ -189,7 +189,7 @@ public class EngineTypeRepositoryTest {
 		EngineType savedEngineType = etRepo.findOne(id);
 		int sizeAfter = savedEngineType.getSubscriptions().size();
 		assertEquals(sizeBefore + 1, sizeAfter);
-		assertEquals(name, savedEngineType.getSubscriptions().get(sizeAfter - 1).getName());
+		assertTrue(savedEngineType.getSubscriptions().contains(subscription));
 	}
 
 }

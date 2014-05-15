@@ -5,7 +5,7 @@ import static org.hamcrest.Matchers.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -87,7 +87,7 @@ public class BodyTypeRepositoryTest {
 	@Test
 	public void getCars() {
 		BodyType bt = btRepo.findOne(1L);
-		List<Car> cars = bt.getCars();
+		Set<Car> cars = bt.getCars();
 		assertThat(cars, notNullValue());
 	}
 
@@ -96,8 +96,8 @@ public class BodyTypeRepositoryTest {
 	@Test
 	public void deleteCascadeCarAndSubscription() {
 		BodyType bt = btRepo.findOne(1L);
-		List<Car> cars = bt.getCars();
-		List<Subscription> subscriptions = bt.getSubscriptions();
+		Set<Car> cars = bt.getCars();
+		Set<Subscription> subscriptions = bt.getSubscriptions();
 
 		btRepo.delete(1L);
 		BodyType bodyType = btRepo.findOne(1L);
@@ -109,18 +109,18 @@ public class BodyTypeRepositoryTest {
 	@Test
 	public void updateCascadeCarAndSubscription() {
 		BodyType bt = btRepo.findOne(1L);
-		List<Car> cars = bt.getCars();
-		Car car = cars.get(0);
+		Set<Car> cars = bt.getCars();
+		Car car = cars.iterator().next();
 		String newColor = "матовый";
 		car.setColor(newColor);
 
-		Subscription subscription = bt.getSubscriptions().get(0);
+		Subscription subscription = bt.getSubscriptions().iterator().next();
 		String newName = "новая подписка";
 		subscription.setName(newName);
 
 		BodyType savedBodyType = btRepo.save(bt);
-		assertEquals(newColor, savedBodyType.getCars().get(0).getColor());
-		assertEquals(newName, savedBodyType.getSubscriptions().get(0).getName());
+		assertTrue(savedBodyType.getCars().contains(car));
+		assertTrue(savedBodyType.getSubscriptions().contains(subscription));
 	}
 
 	@Test
@@ -166,7 +166,7 @@ public class BodyTypeRepositoryTest {
 		BodyType sbt = btRepo.findOne(btId);
 		int sizeAfter = sbt.getSubscriptions().size();
 		assertEquals(sizeBefore + 1, sizeAfter);
-		assertEquals(name, sbt.getSubscriptions().get(sizeAfter - 1).getName());
+		assertTrue(sbt.getSubscriptions().contains(subscription));
 	}
 
 }

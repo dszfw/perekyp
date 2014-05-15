@@ -3,8 +3,9 @@ package org.maxi.booter;
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -50,7 +51,7 @@ public class CarSubscriptionCorrespondingTest {
 			CarModel model = car.getDefinition().getModel();
 			Location location = car.getDefinition().getLocation();
 			List<Subscription> subscriptions = subscriptionRepo.findByCarDefinitionParameters(model, location);
-			car.setSubscriptions(subscriptions);
+			car.getSubscriptions().addAll(subscriptions);
 		}
 		
 		// Saving result
@@ -58,7 +59,7 @@ public class CarSubscriptionCorrespondingTest {
 		
 		// Asserting
 		for (Car car : cars) {
-			List<Subscription> carSubscriptions = car.getSubscriptions();
+			Set<Subscription> carSubscriptions = car.getSubscriptions();
 			
 			CarModel model = car.getDefinition().getModel();
 			Location location = car.getDefinition().getLocation();
@@ -69,14 +70,13 @@ public class CarSubscriptionCorrespondingTest {
 	}
 
 	@Test
-	@Rollback(false)
 	public void corresponding() {
 		// Processing unprocessed cars
 		List<Car> cars = carRepo.findByProcessed(false);
 		
 		for (Car car : cars) {
 			List<Subscription> subscriptions = subscriptionRepo.findByCarDefinition(car.getDefinition());
-			car.setSubscriptions(subscriptions);
+			car.getSubscriptions().addAll(subscriptions);
 		}
 		
 		// Saving result
@@ -90,15 +90,16 @@ public class CarSubscriptionCorrespondingTest {
 	}
 	
 	@Test
-	@Rollback(false)
 	public void updateCarSetMoreSubscription() {
 		Car car = carRepo.findOne(9L);
 		CarModel model = car.getDefinition().getModel();
 		Location location = car.getDefinition().getLocation();
 		User user = userRepo.findOne(1L);
 
-		List<Subscription> newSubscriptions = new ArrayList<>();
-		for (int i = 0; i < 2; i++) {
+		int addition = 2;
+		Set<Subscription> newSubscriptions = new HashSet<Subscription>();
+		for (int i = 0; i < addition; i++) {
+			// TODO Need to refactoring
 			Subscription subscription = new Subscription();
 			subscription.setUser(user);
 			String name = "новая подписка " + i;
@@ -111,26 +112,24 @@ public class CarSubscriptionCorrespondingTest {
 		}
 		subscriptionRepo.save(newSubscriptions);
 		
-		List<Subscription> subscriptions = subscriptionRepo.findByCarDefinition(car.getDefinition());
-		car.setSubscriptions(subscriptions);
+		List<Subscription> subscriptionsFromRepo = subscriptionRepo.findByCarDefinition(car.getDefinition());
+		Set<Subscription> carSubscriptions = car.getSubscriptions();
+		int sizeBefore = carSubscriptions.size();
+		carSubscriptions.addAll(subscriptionsFromRepo);
+		int sizeAfter = carSubscriptions.size();
+
+		assertEquals(sizeBefore + addition,  sizeAfter);
+		assertTrue(carSubscriptions.containsAll(subscriptionsFromRepo));
 	}
 	
 	@Test
-	@Rollback(false)
 	public void updateCarRemoveOneSubscription() {
 		Car car = carRepo.findOne(9L);
-		car.getSubscriptions().remove(0);
+		int sizeBefore = car.getSubscriptions().size();
+		
+		Subscription subscription = subscriptionRepo.findOne(9L);
+		car.getSubscriptions().remove(subscription);
+		assertEquals(sizeBefore - 1, car.getSubscriptions().size());
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	
 }

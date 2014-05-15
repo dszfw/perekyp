@@ -5,7 +5,9 @@ import static org.hamcrest.Matchers.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -47,10 +49,11 @@ public class SubscriptionRepositoryTest {
 		assertNotNull(subscriptionRepo.findOne(1L));
 	}
 
-	// CRUD operations
+	// CRUD operations -----------------------------------------------------
 	
 	@Test
 	public void create() {
+		// TODO Need refactoring
 		Subscription subscription = new Subscription();
 		subscription.setUser(userRepo.findOne(1L));
 		String name = "новая подписка";
@@ -117,19 +120,19 @@ public class SubscriptionRepositoryTest {
 	public void updateCascadeCar() {
 		Long id = 1L;
 		Subscription subscription = subscriptionRepo.findOne(id);
-		Car car = subscription.getCars().get(0);
+		Car car = subscription.getCars().iterator().next();
 		String newColor = "золотой";
 		car.setColor(newColor);
 		
 		subscriptionRepo.save(subscription);
-		assertEquals(newColor, subscription.getCars().get(0).getColor());
+		assertTrue(subscription.getCars().contains(car));
 	}
 	
 	@Test
 	public void noDeleteCascadeCar() {
 		Long id = 1L;
 		ArrayList<Long> idList = new ArrayList<Long>();
-		List<Car> cars = subscriptionRepo.findOne(id).getCars();
+		Set<Car> cars = subscriptionRepo.findOne(id).getCars();
 		cars.forEach(car -> idList.add(car.getId()));
 		
 		subscriptionRepo.delete(id);
@@ -142,7 +145,7 @@ public class SubscriptionRepositoryTest {
 	public void detachCar() {
 		Long id = 1L;
 		Subscription subscription = subscriptionRepo.findOne(id);
-		Car car = subscription.getCars().get(0);
+		Car car = subscription.getCars().iterator().next();
 		long sizeBefore = subscription.getCars().size();
 		
 		subscription.getCars().remove(car);
@@ -155,10 +158,10 @@ public class SubscriptionRepositoryTest {
 	public void detachAllCars() {
 		Long id = 1L;
 		Subscription subscription = subscriptionRepo.findOne(id);
-		List<Car> cars = subscription.getCars();
+		Set<Car> cars = subscription.getCars();
 		assertThat(cars, not(empty()));
 		
-		subscription.setCars(new ArrayList<Car>());;
+		subscription.setCars(new HashSet<Car>());;
 		assertThat(subscription.getCars(), empty());
 		assertThat(cars, not(empty()));
 	}

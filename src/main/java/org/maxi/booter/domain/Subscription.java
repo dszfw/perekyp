@@ -1,7 +1,7 @@
 package org.maxi.booter.domain;
 
 import java.util.Calendar;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -35,7 +35,7 @@ public class Subscription extends AbstractPersistable<Long> {
 			inverseJoinColumns = @JoinColumn(name = "car_id"),
 			joinColumns = @JoinColumn(name = "subscription_id")
 	)
-	private List<Car> cars;
+	private Set<Car> cars;
 
 	private CarDefinition definition;
 
@@ -114,11 +114,11 @@ public class Subscription extends AbstractPersistable<Long> {
 		this.priceTo = priceTo;
 	}
 
-	public List<Car> getCars() {
+	public Set<Car> getCars() {
 		return cars;
 	}
 
-	public void setCars(List<Car> cars) {
+	public void setCars(Set<Car> cars) {
 		this.cars = cars;
 	}
 

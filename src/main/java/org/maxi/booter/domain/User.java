@@ -1,6 +1,6 @@
 package org.maxi.booter.domain;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,7 +19,7 @@ public class User extends AbstractPersistable<Long> {
 	private static final long serialVersionUID = 1L;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Subscription> subscriptions;
+	private Set<Subscription> subscriptions;
 
 	@Column(nullable = false)
 	private String name;
@@ -34,11 +34,11 @@ public class User extends AbstractPersistable<Long> {
 		this.name = name;
 	}
 
-	public List<Subscription> getSubscriptions() {
+	public Set<Subscription> getSubscriptions() {
 		return subscriptions;
 	}
 
-	public void setSubscriptions(List<Subscription> subscriptions) {
+	public void setSubscriptions(Set<Subscription> subscriptions) {
 		this.subscriptions = subscriptions;
 	}
 

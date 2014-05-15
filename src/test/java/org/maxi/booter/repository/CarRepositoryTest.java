@@ -5,7 +5,9 @@ import static org.hamcrest.Matchers.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -89,7 +91,7 @@ public class CarRepositoryTest {
 	@Test
 	public void getSubscriptions() {
 		Car car = carRepo.findOne(1L);
-		List<Subscription> subscriptions = car.getSubscriptions();
+		Set<Subscription> subscriptions = car.getSubscriptions();
 		
 		assertThat(subscriptions, notNullValue());
 		assertThat(subscriptions, not(empty()));
@@ -117,26 +119,26 @@ public class CarRepositoryTest {
 		int sizeAfter = savedCar.getSubscriptions().size();
 		assertThat(sizeBefore, lessThan(sizeAfter));
 		assertEquals(sizeBefore + 1, sizeAfter);
-		assertEquals(name, savedCar.getSubscriptions().get(sizeAfter - 1).getName());
+		assertTrue(savedCar.getSubscriptions().contains(subscription));
 	}
 	
 	@Test
 	public void updateCascadeSubscription() {
 		Long id = 1L;
 		Car car = carRepo.findOne(id);
-		Subscription subscription = car.getSubscriptions().get(0);
+		Subscription subscription = car.getSubscriptions().iterator().next();
 		String newName = "обновленная подписка";
 		subscription.setName(newName);
 		
 		Car savedCar = carRepo.save(car);
-		assertEquals(newName, savedCar.getSubscriptions().get(0).getName());
+		assertTrue(savedCar.getSubscriptions().contains(subscription));
 	}
 	
 	@Test
 	public void noDeleteCascadeSubscription() {
 		Long id = 1L;
 		ArrayList<Long> idList = new ArrayList<Long>();
-		List<Subscription> subscriptions = carRepo.findOne(id).getSubscriptions();
+		Set<Subscription> subscriptions = carRepo.findOne(id).getSubscriptions();
 		subscriptions.forEach(s -> idList.add(s.getId()));
 		
 		carRepo.delete(id);
@@ -149,7 +151,7 @@ public class CarRepositoryTest {
 	public void detachSubscription() {
 		Long id = 1L;
 		Car car = carRepo.findOne(id);
-		Subscription subscription = car.getSubscriptions().get(0);
+		Subscription subscription = car.getSubscriptions().iterator().next();
 		int sizeBefore = car.getSubscriptions().size();
 		
 		car.getSubscriptions().remove(subscription);
@@ -163,10 +165,10 @@ public class CarRepositoryTest {
 	public void detachAllSubscriptions() {
 		Long id = 1L;
 		Car car = carRepo.findOne(id);
-		List<Subscription> subscriptions = car.getSubscriptions();
+		Set<Subscription> subscriptions = car.getSubscriptions();
 		assertThat(subscriptions, not(empty()));
 		
-		car.setSubscriptions(new ArrayList<Subscription>());;
+		car.setSubscriptions(new HashSet<>());
 		Car savedCar = carRepo.findOne(id);
 		assertThat(savedCar.getSubscriptions(), empty());
 		assertThat(subscriptions, not(empty()));
