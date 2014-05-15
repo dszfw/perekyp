@@ -73,11 +73,17 @@ insert into car(processed, created_date, color, drive_id, seller_type_id, transm
 insert into car(processed, created_date, color, drive_id, seller_type_id, transmission_id, displacement, mileage, modification, phone, price, site_id, year, body_type_id, engine_type_id, location_id, model_id) values (1, '2014-05-12 15:00:00', 'белый', 1, 1, 1, 2500, 230000, null,'375298216893', 9500, '№614586', '2002-01-01', 2, 1, 1, 1);
 insert into car(processed, created_date, color, drive_id, seller_type_id, transmission_id, displacement, mileage, modification, phone, price, site_id, year, body_type_id, engine_type_id, location_id, model_id) values (1, '2014-05-12 15:00:00', 'серебристый металлик', 1, 1, 1, 2500, 230000, null,'375298216893', 9500, '№614586', '2002-01-01', 2, 1, 1, 1);
 insert into car(processed, created_date, color, drive_id, seller_type_id, transmission_id, displacement, mileage, modification, phone, price, site_id, year, body_type_id, engine_type_id, location_id, model_id) values (1, '2014-05-12 15:00:00', 'черный', 1, 1, 1, 2500, 230000, null,'375298216893', 9500, '№614586', '2002-01-01', 2, 1, 1, 1);
+insert into car(processed, created_date, color, drive_id, seller_type_id, transmission_id, displacement, mileage, modification, phone, price, site_id, year, body_type_id, engine_type_id, location_id, model_id) values (1, '2014-05-12 15:00:00', 'синий', 1, 1, 1, 2500, 230000, null,'375298216893', 9500, '№614586', '2002-01-01', 2, 1, 1, 1);
+insert into car(processed, created_date, color, drive_id, seller_type_id, transmission_id, displacement, mileage, modification, phone, price, site_id, year, body_type_id, engine_type_id, location_id, model_id) values (1, '2014-05-12 15:00:00', 'shadow line', 1, 1, 1, 2500, 230000, null,'375298216893', 9500, '№614586', '2002-01-01', 2, 1, 1, 3);
+insert into car(processed, created_date, color, drive_id, seller_type_id, transmission_id, displacement, mileage, modification, phone, price, site_id, year, body_type_id, engine_type_id, location_id, model_id) values (1, '2014-05-12 15:00:00', 'черный', 1, 1, 1, 2500, 230000, null,'375298216893', 9500, '№614586', '2002-01-01', 2, 1, 1, 2);
+insert into car(processed, created_date, color, drive_id, seller_type_id, transmission_id, displacement, mileage, modification, phone, price, site_id, year, body_type_id, engine_type_id, location_id, model_id) values (1, '2014-05-12 15:00:00', 'белый', 1, 1, 1, 2500, 230000, null,'375298216893', 9500, '№614586', '2002-01-01', 2, 1, 1, 4);
+insert into car(processed, created_date, color, drive_id, seller_type_id, transmission_id, displacement, mileage, modification, phone, price, site_id, year, body_type_id, engine_type_id, location_id, model_id) values (1, '2014-05-12 15:00:00', 'серебристый металлик', 1, 1, 1, 2500, 230000, null,'375298216893', 9500, '№614586', '2002-01-01', 2, 1, 1, 5);
 insert into car(created_date, color, drive_id, seller_type_id, transmission_id, displacement, mileage, modification, phone, price, site_id, year, body_type_id, engine_type_id, location_id, model_id) values ('2014-05-12 15:00:00', 'синий', 1, 1, 1, 2500, 230000, null,'375298216893', 9500, '№614586', '2002-01-01', 2, 1, 1, 1);
 insert into car(created_date, color, drive_id, seller_type_id, transmission_id, displacement, mileage, modification, phone, price, site_id, year, body_type_id, engine_type_id, location_id, model_id) values ('2014-05-12 15:00:00', 'shadow line', 1, 1, 1, 2500, 230000, null,'375298216893', 9500, '№614586', '2002-01-01', 2, 1, 1, 3);
 insert into car(created_date, color, drive_id, seller_type_id, transmission_id, displacement, mileage, modification, phone, price, site_id, year, body_type_id, engine_type_id, location_id, model_id) values ('2014-05-12 15:00:00', 'черный', 1, 1, 1, 2500, 230000, null,'375298216893', 9500, '№614586', '2002-01-01', 2, 1, 1, 2);
 insert into car(created_date, color, drive_id, seller_type_id, transmission_id, displacement, mileage, modification, phone, price, site_id, year, body_type_id, engine_type_id, location_id, model_id) values ('2014-05-12 15:00:00', 'белый', 1, 1, 1, 2500, 230000, null,'375298216893', 9500, '№614586', '2002-01-01', 2, 1, 1, 4);
 insert into car(created_date, color, drive_id, seller_type_id, transmission_id, displacement, mileage, modification, phone, price, site_id, year, body_type_id, engine_type_id, location_id, model_id) values ('2014-05-12 15:00:00', 'серебристый металлик', 1, 1, 1, 2500, 230000, null,'375298216893', 9500, '№614586', '2002-01-01', 2, 1, 1, 5);
+
 
 -- =================================================================================================
 -- Users
@@ -94,7 +100,9 @@ insert into subscription(name, user_id, year_from, year_to, mileage_from, mileag
 insert into subscription(name, user_id, year_from, year_to, mileage_from, mileage_to, price_from, price_to, model_id, body_type_id, engine_type_id, transmission_id, drive_id, location_id, seller_type_id) values ('Подписка 5', 3, '2005-01-01', '2010-01-01', null, null, null, null, 4, null, null, null, null, 4, null);
 insert into subscription(name, user_id, year_from, year_to, mileage_from, mileage_to, price_from, price_to, model_id, body_type_id, engine_type_id, transmission_id, drive_id, location_id, seller_type_id) values ('Подписка 6', 1, '2005-01-01', '2010-01-01', null, null, null, null, 3, null, null, null, null, 2, null);
 insert into subscription(name, user_id, year_from, year_to, mileage_from, mileage_to, price_from, price_to, model_id, body_type_id, engine_type_id, transmission_id, drive_id, location_id, seller_type_id) values ('Подписка 7', 2, '2005-01-01', '2010-01-01', null, null, null, null, 2, null, null, null, null, 3, null);
-insert into subscription(name, user_id, year_from, year_to, mileage_from, mileage_to, price_from, price_to, model_id, body_type_id, engine_type_id, transmission_id, drive_id, location_id, seller_type_id) values ('Подписка 7', 2, '2005-01-01', '2010-01-01', null, null, null, null, 2, null, null, null, null, 1, null);
+insert into subscription(name, user_id, year_from, year_to, mileage_from, mileage_to, price_from, price_to, model_id, body_type_id, engine_type_id, transmission_id, drive_id, location_id, seller_type_id) values ('Подписка 8', 2, '2005-01-01', '2010-01-01', null, null, null, null, 2, null, null, null, null, 1, null);
+insert into subscription(name, user_id, year_from, year_to, mileage_from, mileage_to, price_from, price_to, model_id, body_type_id, engine_type_id, transmission_id, drive_id, location_id, seller_type_id) values ('Подписка 9', 1, '2000-01-01', '2005-01-01', 100000, 200000, 10000, 15000, 1, 1, 1, null, null, 1, null);
+
 
 -- =================================================================================================
 -- car_subscriptions table
@@ -106,3 +114,8 @@ insert into cars_subscriptions(car_id, subscription_id) values (5, 6);
 insert into cars_subscriptions(car_id, subscription_id) values (6, 1);
 insert into cars_subscriptions(car_id, subscription_id) values (7, 1);
 insert into cars_subscriptions(car_id, subscription_id) values (8, 1);
+insert into cars_subscriptions(car_id, subscription_id) values (8, 1);
+insert into cars_subscriptions(car_id, subscription_id) values (9, 1);
+insert into cars_subscriptions(car_id, subscription_id) values (9, 4);
+insert into cars_subscriptions(car_id, subscription_id) values (11, 8);
+insert into cars_subscriptions(car_id, subscription_id) values (9, 9);

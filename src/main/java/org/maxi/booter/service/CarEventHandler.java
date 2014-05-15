@@ -6,7 +6,7 @@ import org.maxi.booter.domain.Location;
 import org.maxi.booter.domain.Subscription;
 import org.maxi.booter.domain.car.Car;
 import org.maxi.booter.domain.car.CarModel;
-import org.maxi.booter.repository.SubscriptionRepository;
+import org.maxi.booter.repository.subscription.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;

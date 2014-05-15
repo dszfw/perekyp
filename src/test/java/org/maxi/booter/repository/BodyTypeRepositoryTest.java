@@ -128,6 +128,7 @@ public class BodyTypeRepositoryTest {
 		BodyType bt = btRepo.findOne(1L);
 		int sizeBefore = bt.getCars().size();
 
+		// TODO Refactoring
 		Car car = new Car();
 		car.setCreatedDate(Calendar.getInstance());
 		car.setSiteId("1234567");
@@ -148,6 +149,7 @@ public class BodyTypeRepositoryTest {
 		BodyType bt = btRepo.findOne(btId);
 		int sizeBefore = bt.getSubscriptions().size();
 
+		// TODO Refactoring
 		// Subscription creation
 		Subscription subscription = new Subscription();
 		subscription.setUser(uRepo.findOne(1L));
