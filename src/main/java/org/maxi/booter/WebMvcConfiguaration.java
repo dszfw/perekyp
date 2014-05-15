@@ -1,5 +1,7 @@
 package org.maxi.booter;
 
+import org.maxi.booter.service.CarEventHandler;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.http.MediaType;
@@ -8,6 +10,11 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
 @Configuration
 public class WebMvcConfiguaration extends RepositoryRestMvcConfiguration {
 
+	@Bean
+	CarEventHandler carEventHandler() {
+		return new CarEventHandler();
+	}
+	
 	@Override
 	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
 		configurer.defaultContentType(MediaType.TEXT_HTML)

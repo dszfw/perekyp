@@ -114,7 +114,7 @@ insert into cars_subscriptions(car_id, subscription_id) values (5, 6);
 insert into cars_subscriptions(car_id, subscription_id) values (6, 1);
 insert into cars_subscriptions(car_id, subscription_id) values (7, 1);
 insert into cars_subscriptions(car_id, subscription_id) values (8, 1);
-insert into cars_subscriptions(car_id, subscription_id) values (8, 1);
+
 insert into cars_subscriptions(car_id, subscription_id) values (9, 1);
 insert into cars_subscriptions(car_id, subscription_id) values (9, 4);
 insert into cars_subscriptions(car_id, subscription_id) values (11, 8);
