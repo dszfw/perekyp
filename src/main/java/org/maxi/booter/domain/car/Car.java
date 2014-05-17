@@ -1,6 +1,7 @@
 package org.maxi.booter.domain.car;
 
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -30,7 +31,7 @@ public class Car extends AbstractPersistable<Long> {
 			joinColumns = @JoinColumn(name = "car_id"),
 			inverseJoinColumns = @JoinColumn(name = "subscription_id")
 	)
-	private Set<Subscription> subscriptions;
+	private Set<Subscription> subscriptions = new HashSet<>();
 
 	private CarDefinition definition;
 
