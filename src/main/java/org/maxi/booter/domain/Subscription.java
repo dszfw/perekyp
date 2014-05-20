@@ -1,6 +1,6 @@
 package org.maxi.booter.domain;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.Set;
 
 import static javax.persistence.FetchType.*;
@@ -12,9 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Type;
 import org.maxi.booter.domain.car.BodyType;
 import org.maxi.booter.domain.car.Car;
 import org.maxi.booter.domain.car.CarModel;
@@ -65,11 +64,11 @@ public class Subscription extends AbstractEntity {
 	@Column(nullable = false)
 	private String name;
 
-	@Temporal(TemporalType.DATE)
-	private Calendar yearFrom;
+	@Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	private LocalDate yearFrom;
 
-	@Temporal(TemporalType.DATE)
-	private Calendar yearTo;
+	@Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	private LocalDate yearTo;
 
 	private Long mileageFrom;
 
@@ -193,19 +192,19 @@ public class Subscription extends AbstractEntity {
 		this.cars = cars;
 	}
 
-	public Calendar getYearFrom() {
+	public LocalDate getYearFrom() {
 		return yearFrom;
 	}
 
-	public void setYearFrom(Calendar yearFrom) {
+	public void setYearFrom(LocalDate yearFrom) {
 		this.yearFrom = yearFrom;
 	}
 
-	public Calendar getYearTo() {
+	public LocalDate getYearTo() {
 		return yearTo;
 	}
 
-	public void setYearTo(Calendar yearTo) {
+	public void setYearTo(LocalDate yearTo) {
 		this.yearTo = yearTo;
 	}
 

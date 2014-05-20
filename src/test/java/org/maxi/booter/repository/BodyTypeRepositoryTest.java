@@ -3,8 +3,8 @@ package org.maxi.booter.repository;
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Set;
 
 import org.junit.Test;
@@ -129,7 +129,7 @@ public class BodyTypeRepositoryTest {
 
 		// TODO Refactoring
 		Car car = new Car();
-		car.setCreatedDate(Calendar.getInstance());
+		car.setCreatedDate(LocalDateTime.now());
 		car.setSiteId("1234567");
 		car.setModel(cmRepo.findOne(1L));
 		car.setLocation(lRepo.findOne(1l));

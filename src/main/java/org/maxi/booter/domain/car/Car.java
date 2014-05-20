@@ -1,6 +1,7 @@
 package org.maxi.booter.domain.car;
 
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,9 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Type;
 import org.maxi.booter.domain.AbstractEntity;
 import org.maxi.booter.domain.Location;
 import org.maxi.booter.domain.Subscription;
@@ -58,18 +58,19 @@ public class Car extends AbstractEntity {
 	@ManyToOne(fetch = LAZY)
 	private SellerType sellerType;
 	
-	// TODO Issue #1
-	@Temporal(TemporalType.DATE)
-	private Calendar year;
-//	@Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
-//	private LocalDate year;
-
 	@Column(nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar createdDate;
-//	@Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-//	private LocalDateTime createdDate;
+	@Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	private LocalDateTime createdDate;
+	
+	@Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+	private LocalDate year;
 
+	@Column(columnDefinition = "boolean default false")
+	private boolean processed;
+	
+	@Column(nullable = false)
+	private String siteId;
+	
 	private String mileage;
 
 	private String color;
@@ -78,13 +79,7 @@ public class Car extends AbstractEntity {
 
 	private Long price;
 
-	@Column(nullable = false)
-	private String siteId;
-
 	private Long displacement;
-
-	@Column(columnDefinition = "boolean default false")
-	private boolean processed;
 
 	// Getters and Setters methods -----------------------------------------
 
@@ -96,19 +91,19 @@ public class Car extends AbstractEntity {
 		this.modification = modification;
 	}
 
-	public Calendar getYear() {
+	public LocalDate getYear() {
 		return year;
 	}
 
-	public void setYear(Calendar year) {
+	public void setYear(LocalDate year) {
 		this.year = year;
 	}
 
-	public Calendar getCreatedDate() {
+	public LocalDateTime getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Calendar createdDate) {
+	public void setCreatedDate(LocalDateTime createdDate) {
 		this.createdDate = createdDate;
 	}
 
