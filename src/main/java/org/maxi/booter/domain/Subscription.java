@@ -3,10 +3,11 @@ package org.maxi.booter.domain;
 import java.util.Calendar;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
+import static javax.persistence.FetchType.*;
+import static javax.persistence.CascadeType.*;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -14,12 +15,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.maxi.booter.domain.car.BodyType;
 import org.maxi.booter.domain.car.Car;
-import org.maxi.booter.domain.car.CarDefinition;
-import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.maxi.booter.domain.car.CarModel;
+import org.maxi.booter.domain.car.Drive;
+import org.maxi.booter.domain.car.EngineType;
+import org.maxi.booter.domain.car.SellerType;
+import org.maxi.booter.domain.car.Transmission;
 
 @Entity
-//public class Subscription extends AbstractPersistable<Long> {
 public class Subscription extends AbstractEntity {
 
 	/**
@@ -30,14 +34,33 @@ public class Subscription extends AbstractEntity {
 	@ManyToOne(optional = false)
 	private User user;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
+	@ManyToMany(fetch = LAZY, cascade = {PERSIST})
 	@JoinTable(
 			name = "cars_subscriptions",
 			inverseJoinColumns = @JoinColumn(name = "car_id"),
 			joinColumns = @JoinColumn(name = "subscription_id"))
 	private Set<Car> cars;
 
-	private CarDefinition definition;
+	@ManyToOne(optional = false, fetch = LAZY)
+	private CarModel model;
+
+	@ManyToOne(optional = false, fetch = LAZY)
+	private Location location;
+
+	@ManyToOne(fetch = LAZY)
+	private BodyType bodyType;
+
+	@ManyToOne(fetch = LAZY)
+	private EngineType engineType;
+
+	@ManyToOne(fetch = LAZY)
+	private Transmission transmission;
+
+	@ManyToOne(fetch = LAZY)
+	private Drive drive;
+
+	@ManyToOne(fetch = LAZY)
+	private SellerType sellerType;
 
 	@Column(nullable = false)
 	private String name;
@@ -73,13 +96,61 @@ public class Subscription extends AbstractEntity {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-	public CarDefinition getDefinition() {
-		return definition;
+	
+	public CarModel getModel() {
+		return model;
 	}
 
-	public void setDefinition(CarDefinition definition) {
-		this.definition = definition;
+	public void setModel(CarModel model) {
+		this.model = model;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+
+	public BodyType getBodyType() {
+		return bodyType;
+	}
+
+	public void setBodyType(BodyType bodyType) {
+		this.bodyType = bodyType;
+	}
+
+	public EngineType getEngineType() {
+		return engineType;
+	}
+
+	public void setEngineType(EngineType engineType) {
+		this.engineType = engineType;
+	}
+
+	public Transmission getTransmission() {
+		return transmission;
+	}
+
+	public void setTransmission(Transmission transmission) {
+		this.transmission = transmission;
+	}
+
+	public Drive getDrive() {
+		return drive;
+	}
+
+	public void setDrive(Drive drive) {
+		this.drive = drive;
+	}
+
+	public SellerType getSellerType() {
+		return sellerType;
+	}
+
+	public void setSellerType(SellerType sellerType) {
+		this.sellerType = sellerType;
 	}
 
 	public Long getMileageFrom() {

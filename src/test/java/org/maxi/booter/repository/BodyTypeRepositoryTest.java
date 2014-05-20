@@ -13,7 +13,6 @@ import org.maxi.booter.Application;
 import org.maxi.booter.domain.Subscription;
 import org.maxi.booter.domain.car.BodyType;
 import org.maxi.booter.domain.car.Car;
-import org.maxi.booter.domain.car.CarDefinition;
 import org.maxi.booter.repository.subscription.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -33,7 +32,7 @@ public class BodyTypeRepositoryTest {
 	@Autowired
 	BodyTypeRepository btRepo;
 	@Autowired
-	CarRepostitory cRepo;
+	CarRepository cRepo;
 	@Autowired
 	SubscriptionRepository sRepo;
 	@Autowired
@@ -132,11 +131,9 @@ public class BodyTypeRepositoryTest {
 		Car car = new Car();
 		car.setCreatedDate(Calendar.getInstance());
 		car.setSiteId("1234567");
-		CarDefinition definition = new CarDefinition();
-		definition.setModel(cmRepo.findOne(1L));
-		definition.setLocation(lRepo.findOne(1l));
-		definition.setBodyType(bt);
-		car.setDefinition(definition);
+		car.setModel(cmRepo.findOne(1L));
+		car.setLocation(lRepo.findOne(1l));
+		car.setBodyType(bt);
 
 		bt.getCars().add(car);
 		int sizeAfter = btRepo.findOne(1L).getCars().size();
@@ -155,11 +152,9 @@ public class BodyTypeRepositoryTest {
 		subscription.setUser(uRepo.findOne(1L));
 		String name = "новая подписка";
 		subscription.setName(name);
-		CarDefinition definition = new CarDefinition();
-		definition.setLocation(lRepo.findOne(1L));
-		definition.setModel(cmRepo.findOne(1L));
-		definition.setBodyType(bt);
-		subscription.setDefinition(definition);
+		subscription.setLocation(lRepo.findOne(1L));
+		subscription.setModel(cmRepo.findOne(1L));
+		subscription.setBodyType(bt);
 
 		// Save body type and assert result
 		bt.getSubscriptions().add(subscription);

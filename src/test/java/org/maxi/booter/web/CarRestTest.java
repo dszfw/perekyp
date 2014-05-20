@@ -15,9 +15,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.maxi.booter.Application;
 import org.maxi.booter.domain.car.Car;
-import org.maxi.booter.domain.car.CarDefinition;
 import org.maxi.booter.repository.CarModelRepository;
-import org.maxi.booter.repository.CarRepostitory;
+import org.maxi.booter.repository.CarRepository;
 import org.maxi.booter.repository.LocationRepository;
 import org.maxi.booter.repository.subscription.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +50,7 @@ public class CarRestTest {
 	private MockMvc mockMvc;
 	
 	@Autowired
-	CarRepostitory carRepo;
+	CarRepository carRepo;
 	@Autowired
 	SubscriptionRepository subscriptionRepo;
 	@Autowired
@@ -80,6 +79,7 @@ public class CarRestTest {
 	}
 
 	
+	// TODO
 	@Test
 	@Rollback(false)
 	public void createEventHandler() throws Exception {

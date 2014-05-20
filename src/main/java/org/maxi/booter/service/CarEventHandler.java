@@ -17,7 +17,7 @@ public class CarEventHandler {
 
 	@HandleBeforeCreate
 	public void handleBeforeCreate(Car car) {
-		List<Subscription> subscriptions = subscriptionRepository.findByCarDefinition(car.getDefinition());
+		List<Subscription> subscriptions = subscriptionRepository.findByCar(car);
 		car.getSubscriptions().addAll(subscriptions);
 	}
 	

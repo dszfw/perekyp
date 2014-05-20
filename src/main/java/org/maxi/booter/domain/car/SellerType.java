@@ -2,18 +2,17 @@ package org.maxi.booter.domain.car;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.FetchType.*;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import org.maxi.booter.domain.AbstractEntity;
 import org.maxi.booter.domain.Subscription;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
-//public class SellerType extends AbstractPersistable<Long> {
 public class SellerType extends AbstractEntity {
 
 	/**
@@ -21,10 +20,10 @@ public class SellerType extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@OneToMany(mappedBy = "definition.sellerType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "sellerType", fetch = LAZY, cascade = ALL)
 	private Set<Car> cars;
 
-	@OneToMany(mappedBy = "definition.sellerType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "sellerType", fetch = LAZY, cascade = ALL)
 	private Set<Subscription> subscriptions;
 
 	@Column(nullable = false)

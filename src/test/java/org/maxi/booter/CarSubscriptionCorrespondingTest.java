@@ -15,14 +15,12 @@ import org.maxi.booter.domain.Location;
 import org.maxi.booter.domain.Subscription;
 import org.maxi.booter.domain.User;
 import org.maxi.booter.domain.car.Car;
-import org.maxi.booter.domain.car.CarDefinition;
 import org.maxi.booter.domain.car.CarModel;
-import org.maxi.booter.repository.CarRepostitory;
+import org.maxi.booter.repository.CarRepository;
 import org.maxi.booter.repository.UserRepository;
 import org.maxi.booter.repository.subscription.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -35,47 +33,19 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 public class CarSubscriptionCorrespondingTest {
 
 	@Autowired
-	CarRepostitory carRepo;
+	CarRepository carRepo;
 	@Autowired
 	SubscriptionRepository subscriptionRepo;
 	@Autowired
 	UserRepository userRepo;
 	
-	@Deprecated
-	@Test
-	public void corresponding_Old() {
-		// Processing unprocessed cars
-		List<Car> cars = carRepo.findByProcessed(false);
-		
-		for (Car car : cars) {
-			CarModel model = car.getDefinition().getModel();
-			Location location = car.getDefinition().getLocation();
-			List<Subscription> subscriptions = subscriptionRepo.findByCarDefinitionParameters(model, location);
-			car.getSubscriptions().addAll(subscriptions);
-		}
-		
-		// Saving result
-		cars = (List<Car>) carRepo.save(cars);
-		
-		// Asserting
-		for (Car car : cars) {
-			Set<Subscription> carSubscriptions = car.getSubscriptions();
-			
-			CarModel model = car.getDefinition().getModel();
-			Location location = car.getDefinition().getLocation();
-			List<Subscription> subscriptions = subscriptionRepo.findByCarDefinitionParameters(model, location);
-			
-			carSubscriptions.forEach(s -> assertTrue(subscriptions.contains(s)));
-		}
-	}
-
 	@Test
 	public void corresponding() {
 		// Processing unprocessed cars
 		List<Car> cars = carRepo.findByProcessed(false);
 		
 		for (Car car : cars) {
-			List<Subscription> subscriptions = subscriptionRepo.findByCarDefinition(car.getDefinition());
+			List<Subscription> subscriptions = subscriptionRepo.findByCar(car);
 			car.getSubscriptions().addAll(subscriptions);
 		}
 		
@@ -84,7 +54,7 @@ public class CarSubscriptionCorrespondingTest {
 		
 		// Asserting
 		for (Car car : cars) {
-			List<Subscription> subscriptions = subscriptionRepo.findByCarDefinition(car.getDefinition());
+			List<Subscription> subscriptions = subscriptionRepo.findByCar(car);
 			assertTrue(subscriptions.containsAll(car.getSubscriptions()));
 		}
 	}
@@ -92,8 +62,8 @@ public class CarSubscriptionCorrespondingTest {
 	@Test
 	public void updateCarSetMoreSubscription() {
 		Car car = carRepo.findOne(9L);
-		CarModel model = car.getDefinition().getModel();
-		Location location = car.getDefinition().getLocation();
+		CarModel model = car.getModel();
+		Location location = car.getLocation();
 		User user = userRepo.findOne(1L);
 
 		int addition = 2;
@@ -104,15 +74,13 @@ public class CarSubscriptionCorrespondingTest {
 			subscription.setUser(user);
 			String name = "новая подписка " + i;
 			subscription.setName(name);
-			CarDefinition definition = new CarDefinition();
-			definition.setLocation(location);
-			definition.setModel(model);
-			subscription.setDefinition(definition);
+			subscription.setLocation(location);
+			subscription.setModel(model);
 			newSubscriptions.add(subscription);
 		}
 		subscriptionRepo.save(newSubscriptions);
 		
-		List<Subscription> subscriptionsFromRepo = subscriptionRepo.findByCarDefinition(car.getDefinition());
+		List<Subscription> subscriptionsFromRepo = subscriptionRepo.findByCar(car);
 		Set<Subscription> carSubscriptions = car.getSubscriptions();
 		int sizeBefore = carSubscriptions.size();
 		carSubscriptions.addAll(subscriptionsFromRepo);

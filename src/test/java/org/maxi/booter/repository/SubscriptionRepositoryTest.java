@@ -14,11 +14,8 @@ import javax.transaction.Transactional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.maxi.booter.Application;
-import org.maxi.booter.domain.Location;
 import org.maxi.booter.domain.Subscription;
 import org.maxi.booter.domain.car.Car;
-import org.maxi.booter.domain.car.CarDefinition;
-import org.maxi.booter.domain.car.CarModel;
 import org.maxi.booter.repository.subscription.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -34,7 +31,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 public class SubscriptionRepositoryTest {
 
 	@Autowired
-	CarRepostitory carRepo;
+	CarRepository carRepo;
 	@Autowired
 	SubscriptionRepository subscriptionRepo;
 	@Autowired
@@ -58,10 +55,8 @@ public class SubscriptionRepositoryTest {
 		subscription.setUser(userRepo.findOne(1L));
 		String name = "новая подписка";
 		subscription.setName(name);
-		CarDefinition definition = new CarDefinition();
-		definition.setLocation(locationRepo.findOne(1L));
-		definition.setModel(carModelRepo.findOne(1L));
-		subscription.setDefinition(definition);
+		subscription.setLocation(locationRepo.findOne(1L));
+		subscription.setModel(carModelRepo.findOne(1L));
 
 		long sizeBefore = subscriptionRepo.count();
 		subscriptionRepo.save(subscription);
@@ -105,10 +100,8 @@ public class SubscriptionRepositoryTest {
 		Car car = new Car();
 		car.setCreatedDate(Calendar.getInstance());
 		car.setSiteId("1234567");
-		CarDefinition definition = new CarDefinition();
-		definition.setModel(carModelRepo.findOne(1L));
-		definition.setLocation(locationRepo.findOne(1l));
-		car.setDefinition(definition);
+		car.setModel(carModelRepo.findOne(1L));
+		car.setLocation(locationRepo.findOne(1l));
 
 		subscription.getCars().add(car);
 		long sizeAfter = subscription.getCars().size();
@@ -169,22 +162,9 @@ public class SubscriptionRepositoryTest {
 	// Query methods -------------------------------------------------------
 		
 	@Test
-	public void findByCarDefinitionParameters() {
-		Car car = carRepo.findOne(1L);
-		CarModel model = car.getDefinition().getModel();
-		Location location = car.getDefinition().getLocation();
-		
-		List<Subscription> subscriptions = subscriptionRepo.findByCarDefinitionParameters(model, location);
-		subscriptions.forEach(s -> {
-			assertEquals(model.getId(), s.getDefinition().getModel().getId());			
-			assertEquals(location.getId(), s.getDefinition().getLocation().getId());
-		});
-	}
-	
-	@Test
 	public void findByCarDefinition() {
 		Car car = carRepo.findOne(6L);
-		List<Subscription> subscriptions = subscriptionRepo.findByCarDefinition(car.getDefinition());
+		List<Subscription> subscriptions = subscriptionRepo.findByCar(car);
 		assertTrue(subscriptions.containsAll(car.getSubscriptions()));
 	}
 		

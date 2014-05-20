@@ -2,16 +2,14 @@ package org.maxi.booter.domain;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.FetchType.*;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
 @Entity
-//public class User extends AbstractPersistable<Long> {
 public class User extends AbstractEntity {
 
 	/**
@@ -19,7 +17,7 @@ public class User extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", fetch = LAZY, cascade = ALL)
 	private Set<Subscription> subscriptions;
 
 	@Column(nullable = false)
