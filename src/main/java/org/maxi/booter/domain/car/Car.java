@@ -1,5 +1,7 @@
 package org.maxi.booter.domain.car;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,11 +16,16 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Type;
+import org.maxi.booter.domain.AbstractEntity;
 import org.maxi.booter.domain.Subscription;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-public class Car extends AbstractPersistable<Long> {
+//public class Car extends AbstractPersistable<Long> {
+public class Car extends AbstractEntity {
 
 	/**
      * 
@@ -29,20 +36,24 @@ public class Car extends AbstractPersistable<Long> {
 	@JoinTable(
 			name = "cars_subscriptions",
 			joinColumns = @JoinColumn(name = "car_id"),
-			inverseJoinColumns = @JoinColumn(name = "subscription_id")
-	)
+			inverseJoinColumns = @JoinColumn(name = "subscription_id"))
 	private Set<Subscription> subscriptions = new HashSet<>();
 
 	private CarDefinition definition;
 
 	private String modification;
 
+	// TODO
 	@Temporal(TemporalType.DATE)
 	private Calendar year;
+//	@Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+//	private LocalDate year;
 
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar createdDate;
+//	@Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+//	private LocalDateTime createdDate;
 
 	private String mileage;
 

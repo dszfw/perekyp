@@ -19,22 +19,22 @@ import org.maxi.booter.domain.car.CarDefinition;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
-public class Subscription extends AbstractPersistable<Long> {
+//public class Subscription extends AbstractPersistable<Long> {
+public class Subscription extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false)
 	private User user;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
 	@JoinTable(
 			name = "cars_subscriptions",
 			inverseJoinColumns = @JoinColumn(name = "car_id"),
-			joinColumns = @JoinColumn(name = "subscription_id")
-	)
+			joinColumns = @JoinColumn(name = "subscription_id"))
 	private Set<Car> cars;
 
 	private CarDefinition definition;

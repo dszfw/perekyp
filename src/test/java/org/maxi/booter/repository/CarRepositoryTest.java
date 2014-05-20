@@ -20,7 +20,6 @@ import org.maxi.booter.domain.car.CarDefinition;
 import org.maxi.booter.repository.subscription.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -49,8 +48,8 @@ public class CarRepositoryTest {
 	}
 
 	@Test
-	@Rollback(false)
 	public void create() {
+		// TODO Need refactoring tests
 		Car car = new Car();
 		car.setCreatedDate(Calendar.getInstance());
 		car.setSiteId("1234567");

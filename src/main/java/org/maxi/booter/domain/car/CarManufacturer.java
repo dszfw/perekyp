@@ -8,10 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import org.maxi.booter.domain.AbstractEntity;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
-public class CarManufacturer extends AbstractPersistable<Long> {
+//public class CarManufacturer extends AbstractPersistable<Long> {
+public class CarManufacturer extends AbstractEntity {
 
 	/**
 	 * 

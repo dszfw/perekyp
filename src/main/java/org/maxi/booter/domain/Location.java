@@ -12,7 +12,8 @@ import org.maxi.booter.domain.car.Car;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
-public class Location extends AbstractPersistable<Long> {
+//public class Location extends AbstractPersistable<Long> {
+public class Location extends AbstractEntity {
 
 	/**
 	 * 

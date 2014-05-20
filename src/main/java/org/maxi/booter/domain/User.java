@@ -11,7 +11,8 @@ import javax.persistence.OneToMany;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
-public class User extends AbstractPersistable<Long> {
+//public class User extends AbstractPersistable<Long> {
+public class User extends AbstractEntity {
 
 	/**
 	 * 

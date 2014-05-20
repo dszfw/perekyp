@@ -9,18 +9,22 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.maxi.booter.domain.AbstractEntity;
 import org.maxi.booter.domain.Subscription;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
-public class CarModel extends AbstractPersistable<Long> {
+//public class CarModel extends AbstractPersistable<Long> {
+public class CarModel extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	// TODO
+//	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false)
 	private CarManufacturer manufacturer;
 
 	@OneToMany(mappedBy = "definition.model", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
