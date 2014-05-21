@@ -1,4 +1,4 @@
-package org.maxi.booter;
+package org.maxi.booter.repository;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.maxi.booter.Application;
 import org.maxi.booter.domain.Location;
 import org.maxi.booter.domain.Subscription;
 import org.maxi.booter.domain.User;
@@ -30,7 +31,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 @ActiveProfiles("testing")
 @Transactional
 @TransactionConfiguration(defaultRollback = true)
-public class CarSubscriptionCorrespondingTest {
+public class CarSubscriptionRelationshipTest {
 
 	@Autowired
 	CarRepository carRepo;
@@ -39,6 +40,7 @@ public class CarSubscriptionCorrespondingTest {
 	@Autowired
 	UserRepository userRepo;
 	
+/*
 	@Test
 	public void corresponding() {
 		// Processing unprocessed cars
@@ -58,7 +60,8 @@ public class CarSubscriptionCorrespondingTest {
 			assertTrue(subscriptions.containsAll(car.getSubscriptions()));
 		}
 	}
-	
+*/
+
 	@Test
 	public void updateCarSetMoreSubscription() {
 		Car car = carRepo.findOne(9L);

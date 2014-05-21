@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -172,15 +171,15 @@ public class CarRepositoryTest {
 	
 	// Query methods -------------------------------------------------------
 
-	@Test
-	public void findByProcessed() {
-		boolean processed = false;
-		List<Car> cars = carRepo.findByProcessed(processed);
-		cars.forEach(c -> assertFalse(c.isProcessed()));
-
-		processed = true;
-		cars = carRepo.findByProcessed(processed);
-		cars.forEach(c -> assertTrue(c.isProcessed()));
-	}
+//	@Test
+//	public void findByProcessed() {
+//		boolean processed = false;
+//		List<Car> cars = carRepo.findByProcessed(processed);
+//		cars.forEach(c -> assertFalse(c.isProcessed()));
+//
+//		processed = true;
+//		cars = carRepo.findByProcessed(processed);
+//		cars.forEach(c -> assertTrue(c.isProcessed()));
+//	}
 	
 }

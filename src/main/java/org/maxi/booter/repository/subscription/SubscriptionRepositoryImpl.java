@@ -11,7 +11,7 @@ import org.maxi.booter.domain.car.Car;
 
 public class SubscriptionRepositoryImpl implements SubscriptionRepositoryCustom {
 
-	private static final String FIND_BY_CAR_DEFINITION = "select s from Subscription s "
+	private static final String FIND_BY_CAR = "select s from Subscription s "
 			+ "where (s.model = :m) and (s.location = :l)";
 
 	@PersistenceContext
@@ -19,7 +19,7 @@ public class SubscriptionRepositoryImpl implements SubscriptionRepositoryCustom 
 
 	@Override
 	public List<Subscription> findByCar(Car car) {
-		TypedQuery<Subscription> query = entityManager.createQuery(FIND_BY_CAR_DEFINITION, Subscription.class)
+		TypedQuery<Subscription> query = entityManager.createQuery(FIND_BY_CAR, Subscription.class)
 				.setParameter("m", car.getModel())
 				.setParameter("l", car.getLocation());
 

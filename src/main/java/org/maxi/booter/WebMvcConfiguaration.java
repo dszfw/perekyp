@@ -7,6 +7,8 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguratio
 import org.springframework.http.MediaType;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Configuration
 public class WebMvcConfiguaration extends RepositoryRestMvcConfiguration {
 
@@ -21,5 +23,8 @@ public class WebMvcConfiguaration extends RepositoryRestMvcConfiguration {
 				.mediaType("html", MediaType.TEXT_HTML)
 				.mediaType("json", MediaType.APPLICATION_JSON);
 	}
-	
+	@Override
+	protected void configureJacksonObjectMapper(ObjectMapper objectMapper) {
+		objectMapper.findAndRegisterModules();
+	}
 }

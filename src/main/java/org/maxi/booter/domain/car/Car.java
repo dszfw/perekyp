@@ -19,6 +19,7 @@ import org.hibernate.annotations.Type;
 import org.maxi.booter.domain.AbstractEntity;
 import org.maxi.booter.domain.Location;
 import org.maxi.booter.domain.Subscription;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Car extends AbstractEntity {
@@ -64,14 +65,11 @@ public class Car extends AbstractEntity {
 	
 	@Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
 	private LocalDate year;
-
-	@Column(columnDefinition = "boolean default false")
-	private boolean processed;
 	
 	@Column(nullable = false)
 	private String siteId;
 	
-	private String mileage;
+	private Long mileage;
 
 	private String color;
 
@@ -103,15 +101,17 @@ public class Car extends AbstractEntity {
 		return createdDate;
 	}
 
+	// TODO
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public void setCreatedDate(LocalDateTime createdDate) {
 		this.createdDate = createdDate;
 	}
 
-	public String getMileage() {
+	public Long getMileage() {
 		return mileage;
 	}
 
-	public void setMileage(String mileage) {
+	public void setMileage(Long mileage) {
 		this.mileage = mileage;
 	}
 
@@ -217,14 +217,6 @@ public class Car extends AbstractEntity {
 
 	public void setSubscriptions(Set<Subscription> subscriptions) {
 		this.subscriptions = subscriptions;
-	}
-
-	public boolean isProcessed() {
-		return processed;
-	}
-
-	public void setProcessed(boolean processed) {
-		this.processed = processed;
 	}
 
 }

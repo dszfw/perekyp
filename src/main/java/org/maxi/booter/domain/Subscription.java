@@ -1,6 +1,7 @@
 package org.maxi.booter.domain;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 import static javax.persistence.FetchType.*;
@@ -38,7 +39,7 @@ public class Subscription extends AbstractEntity {
 			name = "cars_subscriptions",
 			inverseJoinColumns = @JoinColumn(name = "car_id"),
 			joinColumns = @JoinColumn(name = "subscription_id"))
-	private Set<Car> cars;
+	private Set<Car> cars = new HashSet<Car>();
 
 	@ManyToOne(optional = false, fetch = LAZY)
 	private CarModel model;

@@ -7,6 +7,7 @@ import org.maxi.booter.domain.car.Car;
 import org.maxi.booter.repository.subscription.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
+import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 
 @RepositoryEventHandler(Car.class)
@@ -19,6 +20,11 @@ public class CarEventHandler {
 	public void handleBeforeCreate(Car car) {
 		List<Subscription> subscriptions = subscriptionRepository.findByCar(car);
 		car.getSubscriptions().addAll(subscriptions);
+	}
+	
+	@HandleBeforeSave
+	public void handleBeforeSave(Car car) {
+		handleBeforeCreate(car);
 	}
 	
 }
