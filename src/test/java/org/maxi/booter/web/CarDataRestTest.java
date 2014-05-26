@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class CarRestTest extends AbstractRestTest<Car> {
+public class CarDataRestTest extends AbstractWebTest<Car> {
 	
 	@Autowired
 	SubscriptionRepository subscriptionRepository;
@@ -78,7 +78,7 @@ public class CarRestTest extends AbstractRestTest<Car> {
 		Car car = repository.findOne(id);
 		assertThat(id, equalTo(car.getId()));
 		assertThat(dto.color, equalTo(car.getColor()));		
-		assertThat(parseIdFromLink(dto.model), equalTo(car.getModel().getId()));
+		assertThat(WebTestUtils.parseIdFromLink(dto.model), equalTo(car.getModel().getId()));
 	}
 	
 	// TODO Refactoring. Split this test to two tests
@@ -101,7 +101,7 @@ public class CarRestTest extends AbstractRestTest<Car> {
 				.andExpect(status().isCreated())
 				.andReturn();
 
-		Car car = repository.findOne(parseIdFromLocationHeader(result));
+		Car car = repository.findOne(WebTestUtils.parseIdFromLocationHeader(result));
 		assertThat(car.getColor(), equalTo(dto.color));
 		assertThat(car.getModel().getId(), equalTo(dtoModelId));
 		assertThat(car.getLocation().getId(), equalTo(dtoLocationId));
