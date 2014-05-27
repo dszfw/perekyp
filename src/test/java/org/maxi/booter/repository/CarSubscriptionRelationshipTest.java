@@ -17,7 +17,6 @@ import org.maxi.booter.domain.Subscription;
 import org.maxi.booter.domain.User;
 import org.maxi.booter.domain.car.Car;
 import org.maxi.booter.domain.car.CarModel;
-import org.maxi.booter.repository.CarRepository;
 import org.maxi.booter.repository.UserRepository;
 import org.maxi.booter.repository.subscription.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;

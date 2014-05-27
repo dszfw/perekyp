@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -13,11 +14,15 @@ import javax.transaction.Transactional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.maxi.booter.Application;
+import org.maxi.booter.domain.Location;
 import org.maxi.booter.domain.Subscription;
 import org.maxi.booter.domain.car.Car;
+import org.maxi.booter.domain.car.CarModel;
 import org.maxi.booter.repository.subscription.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -171,15 +176,22 @@ public class CarRepositoryTest {
 	
 	// Query methods -------------------------------------------------------
 
-//	@Test
-//	public void findByProcessed() {
-//		boolean processed = false;
-//		List<Car> cars = carRepo.findByProcessed(processed);
-//		cars.forEach(c -> assertFalse(c.isProcessed()));
-//
-//		processed = true;
-//		cars = carRepo.findByProcessed(processed);
-//		cars.forEach(c -> assertTrue(c.isProcessed()));
-//	}
+	// TODO Adding other parameters
+	@Test
+	public void findByParams() {
+		CarModel model = carModelRepo.findOne(1L);
+		Location location = locationRepo.findOne(1L);
+		
+		PageRequest pageRequest = new PageRequest(0, (int) carRepo.count());
+		Page<Car> carsPage = carRepo.findByParams(model, location, null, null, pageRequest);
+		List<Car> carsList = carsPage.getContent();
+		
+		carsList.forEach(car -> {
+			assertThat(car.getModel(), equalTo(model));
+			assertThat(car.getLocation(), equalTo(location));
+		});
+		assertTrue(model.getCars().containsAll(carsList));
+		assertTrue(location.getCars().containsAll(carsList));
+	}
 	
 }
