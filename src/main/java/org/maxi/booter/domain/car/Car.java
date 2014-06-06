@@ -66,7 +66,7 @@ public class Car extends AbstractEntity {
 	@Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
 	private LocalDate year;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String siteId;
 	
 	private Long mileage;

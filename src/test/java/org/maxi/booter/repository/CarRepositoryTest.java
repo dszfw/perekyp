@@ -92,7 +92,7 @@ public class CarRepositoryTest {
 	
 	@Test
 	public void getSubscriptions() {
-		Car car = carRepo.findOne(1L);
+		Car car = carRepo.findOne(35L);
 		Set<Subscription> subscriptions = car.getSubscriptions();
 		
 		assertThat(subscriptions, notNullValue());
@@ -124,7 +124,7 @@ public class CarRepositoryTest {
 	
 	@Test
 	public void updateCascadeSubscription() {
-		Long id = 1L;
+		Long id = 35L;
 		Car car = carRepo.findOne(id);
 		Subscription subscription = car.getSubscriptions().iterator().next();
 		String newName = "обновленная подписка";
@@ -149,7 +149,7 @@ public class CarRepositoryTest {
 	
 	@Test
 	public void detachSubscription() {
-		Long id = 1L;
+		Long id = 35L;
 		Car car = carRepo.findOne(id);
 		Subscription subscription = car.getSubscriptions().iterator().next();
 		int sizeBefore = car.getSubscriptions().size();
@@ -176,14 +176,15 @@ public class CarRepositoryTest {
 	
 	// Query methods -------------------------------------------------------
 
-	// TODO Adding other parameters
 	@Test
 	public void findByParams() {
 		CarModel model = carModelRepo.findOne(1L);
 		Location location = locationRepo.findOne(1L);
 		
 		PageRequest pageRequest = new PageRequest(0, (int) carRepo.count());
-		Page<Car> carsPage = carRepo.findByParams(model, location, null, null, pageRequest);
+		Page<Car> carsPage = carRepo.findByParams(null, model, location, null,
+				null, null, null, null, null, null, null, null, null, null,
+				null, null, pageRequest);
 		List<Car> carsList = carsPage.getContent();
 		
 		carsList.forEach(car -> {

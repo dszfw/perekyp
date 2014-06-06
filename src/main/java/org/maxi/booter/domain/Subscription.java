@@ -1,11 +1,11 @@
 package org.maxi.booter.domain;
 
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.FetchType.LAZY;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-
-import static javax.persistence.FetchType.*;
-import static javax.persistence.CascadeType.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -78,6 +78,10 @@ public class Subscription extends AbstractEntity {
 	private Long priceFrom;
 
 	private Long priceTo;
+	
+	private Long displacementFrom;
+	
+	private Long displacementTo;
 
 	// Getters and Setters methods -----------------------------------------
 
@@ -207,6 +211,22 @@ public class Subscription extends AbstractEntity {
 
 	public void setYearTo(LocalDate yearTo) {
 		this.yearTo = yearTo;
+	}
+
+	public Long getDisplacementFrom() {
+		return displacementFrom;
+	}
+
+	public void setDisplacementFrom(Long displacementFrom) {
+		this.displacementFrom = displacementFrom;
+	}
+
+	public Long getDisplacementTo() {
+		return displacementTo;
+	}
+
+	public void setDisplacementTo(Long displacementTo) {
+		this.displacementTo = displacementTo;
 	}
 
 }

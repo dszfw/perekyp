@@ -35,6 +35,7 @@ public class CarDataRestTest extends AbstractWebTest<Car> {
 				.andExpect(jsonPath("$.siteId", equalTo(car.getSiteId())));
 	}
 	
+	// TODO Wrong test
 	@Test
 	public void getAll() throws Exception {
 		int size = (int) repository.count();

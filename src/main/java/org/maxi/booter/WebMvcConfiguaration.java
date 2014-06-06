@@ -27,4 +27,5 @@ public class WebMvcConfiguaration extends RepositoryRestMvcConfiguration {
 	protected void configureJacksonObjectMapper(ObjectMapper objectMapper) {
 		objectMapper.findAndRegisterModules();
 	}
+	
 }
